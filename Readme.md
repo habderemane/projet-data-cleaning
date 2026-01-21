@@ -1,8 +1,8 @@
 # 🧹 API d'Automatisation de Traitement de Données (Data Cleaning)
 
 ## 📝 Informations sur le Projet
-* **Auteurs** : Zoubeir IBRAHIMA AMED
-*  **Emails** : Zoubeiribrahima@gmail.com
+* **Auteurs** : HANANE Abderemane
+*  **Emails** : hananeabderemane@gmail.com
 
 ---
 
