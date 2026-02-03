@@ -104,11 +104,12 @@ if uploaded_file is not None:
         
         with tab1:
             st.info(f"Fichier chargé : **{uploaded_file.name}**")
-            col1, col2, col3, col4 = st.columns(4)
+            col1, col2, col3, col4, col5 = st.columns(5)
             col1.metric("Lignes", df.shape[0])
             col2.metric("Colonnes", df.shape[1])
             col3.metric("Doublons", df.duplicated().sum())
-            col4.metric("Valeurs Nulles", df.isnull().sum().sum())
+            col4.metric("Valeurs Manquantes", df.isnull().sum().sum())
+            col5.metric("Valeures abererantes (IQR)", sum([df[col].apply(lambda x: x < (df[col].quantile(0.25) - 1.5 * (df[col].quantile(0.75) - df[col].quantile(0.25))) or x > (df[col].quantile(0.75) + 1.5 * (df[col].quantile(0.75) - df[col].quantile(0.25))) if pd.notnull(x) else False).sum() for col in df.select_dtypes(include=['number']).columns]))
 
             with st.expander("Voir l'aperçu du tableau", expanded=True):
                 st.dataframe(df.head(10), use_container_width=True)
