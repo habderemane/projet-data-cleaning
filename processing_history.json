@@ -1,0 +1,25 @@
+[
+  {
+    "filename": "clean_Advertising.csv.csv",
+    "timestamp": "2026-02-03 21:14:32",
+    "original_rows": 200,
+    "cleaned_rows": 200,
+    "rows_removed": 0,
+    "operations": [
+      "Suppression des doublons",
+      "Traitement des outliers (IQR)"
+    ]
+  },
+  {
+    "filename": "etudiant.csv",
+    "timestamp": "2026-02-03 21:05:16",
+    "original_rows": 8,
+    "cleaned_rows": 8,
+    "rows_removed": 0,
+    "operations": [
+      "Suppression des doublons",
+      "Traitement des outliers (IQR)",
+      "Normalisation: MinMax (0-1)"
+    ]
+  }
+]
