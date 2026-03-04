@@ -33,6 +33,8 @@ projet_data_cleaning/
 ├── requirements.txt        # Dépendances Python
 ├── Readme.md               # Documentation du projet
 ├── LICENSE                 # Licence MIT
+├── Procfile                # Configuration de déploiement (Render)
+├── render.yaml             # Spec de déploiement Render
 ├── data/                   # Dossier de données exemples
 │   ├── customers-1000.csv  # Fichier de données exemple
 │   └── test_data.csv       # Fichier de test
@@ -49,7 +51,7 @@ projet_data_cleaning/
 | 4 | **Outliers (IQR)** | Détection, visualisation (boxplots) et traitement |
 | 5 | **Normalisation** | MinMax Scaling ou Standard Scaling (Z-Score) |
 | 6 | **Export multi-formats** | CSV, Excel, JSON, XML |
-| 7 | **Dashboard** | Statistiques globales, graphique donut, fichiers récents |
+| 7 | **Dashboard** | Statistiques globales, graphique donut avec couleurs par type (🔵 CSV, 🟢 Excel, 🟠 JSON, 🔴 XML), fichiers récents |
 | 8 | **Historique** | Suivi automatique avec horodatage (100 derniers traitements) |
 | 9 | **Protection doublon** | Avertissement si le fichier a déjà été traité |
 
@@ -204,6 +206,21 @@ Identifie et supprime automatiquement les lignes dupliquées en conservant la pr
 * Informations : date/heure, nom du fichier, lignes avant/après, opérations
 * Affichage sur la page Historique avec détails extensibles
 * Conservation des 100 derniers enregistrements
+
+---
+
+## 🌍 Déploiement
+
+### Streamlit Community Cloud (gratuit)
+
+1. Aller sur [share.streamlit.io](https://share.streamlit.io) et se connecter avec GitHub
+2. Cliquer sur **"New app"** → **"Paste GitHub URL"**
+3. Coller : `https://github.com/habderemane/projet-data-cleaning/blob/main/app.py`
+4. Cliquer sur **Deploy**
+
+> Pour un repo privé : Settings → Manage GitHub permissions → autoriser l'accès au repo.
+
+L'application sera accessible à : `https://projet-data-cleaning-xxxx.streamlit.app`
 
 ---
 
