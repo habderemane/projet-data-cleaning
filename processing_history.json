@@ -1,5 +1,78 @@
 [
   {
+    "filename": "teste_jour_Ferié.xlsx",
+    "timestamp": "2026-03-04 11:42:54",
+    "original_rows": 25,
+    "cleaned_rows": 20,
+    "rows_removed": 5,
+    "operations": [
+      "Valeurs manquantes : Mode (Fréquence)",
+      "Suppression des doublons",
+      "Traitement des outliers (IQR)",
+      "Normalisation : MinMax (0-1)"
+    ],
+    "file_type": "xlsx",
+    "export_format": "csv"
+  },
+  {
+    "filename": "donnéesTest.csv",
+    "timestamp": "2026-02-27 19:08:27",
+    "original_rows": 1000,
+    "cleaned_rows": 1000,
+    "rows_removed": 0,
+    "operations": [
+      "Valeurs manquantes : Médiane (Median)",
+      "Suppression des doublons",
+      "Normalisation : MinMax (0-1)"
+    ],
+    "file_type": "csv",
+    "export_format": "csv"
+  },
+  {
+    "filename": "Advertising.csv",
+    "timestamp": "2026-02-27 18:43:01",
+    "original_rows": 200,
+    "cleaned_rows": 200,
+    "rows_removed": 0,
+    "operations": [
+      "Valeurs manquantes : Mode (Fréquence)",
+      "Suppression des doublons",
+      "Traitement des outliers (IQR)",
+      "Normalisation : Standard (Z-Score)"
+    ],
+    "file_type": "csv",
+    "export_format": "csv"
+  },
+  {
+    "filename": "donnéesTest.csv",
+    "timestamp": "2026-02-27 18:39:40",
+    "original_rows": 1000,
+    "cleaned_rows": 1000,
+    "rows_removed": 0,
+    "operations": [
+      "Valeurs manquantes : Mode (Fréquence)",
+      "Suppression des doublons",
+      "Traitement des outliers (IQR)",
+      "Normalisation : Standard (Z-Score)"
+    ],
+    "file_type": "csv",
+    "export_format": "csv"
+  },
+  {
+    "filename": "clean_etudiant.csv.csv",
+    "timestamp": "2026-02-27 18:37:41",
+    "original_rows": 8,
+    "cleaned_rows": 8,
+    "rows_removed": 0,
+    "operations": [
+      "Valeurs manquantes : Mode (Fréquence)",
+      "Suppression des doublons",
+      "Traitement des outliers (IQR)"
+    ],
+    "file_type": "csv",
+    "export_format": "csv"
+  },
+  {
     "filename": "clean_Advertising.csv.csv",
     "timestamp": "2026-02-03 21:14:32",
     "original_rows": 200,
@@ -8,7 +81,9 @@
     "operations": [
       "Suppression des doublons",
       "Traitement des outliers (IQR)"
-    ]
+    ],
+    "file_type": "csv",
+    "export_format": "csv"
   },
   {
     "filename": "etudiant.csv",
@@ -20,6 +95,8 @@
       "Suppression des doublons",
       "Traitement des outliers (IQR)",
       "Normalisation: MinMax (0-1)"
-    ]
+    ],
+    "file_type": "csv",
+    "export_format": "csv"
   }
 ]

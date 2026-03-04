@@ -3,6 +3,7 @@ import numpy as np
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
 import io
 import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
 import seaborn as sns
 
 def load_data(uploaded_file):
@@ -128,6 +129,84 @@ def convert_df_to_csv(df):
     return df.to_csv(index=False).encode('utf-8')
 
 
+def convert_df_to_excel(df):
+    """Convertit un DataFrame en format Excel (.xlsx)."""
+    output = io.BytesIO()
+    with pd.ExcelWriter(output, engine='openpyxl') as writer:
+        df.to_excel(writer, index=False, sheet_name='Données Nettoyées')
+    return output.getvalue()
+
+
+def convert_df_to_json(df):
+    """Convertit un DataFrame en format JSON encodé en UTF-8."""
+    return df.to_json(orient='records', force_ascii=False, indent=2).encode('utf-8')
+
+
+def convert_df_to_xml(df):
+    """Convertit un DataFrame en format XML encodé en UTF-8."""
+    try:
+        return df.to_xml(index=False).encode('utf-8')
+    except Exception:
+        # Fallback manuel si to_xml n'est pas disponible
+        lines = ['<?xml version="1.0" encoding="UTF-8"?>', '<data>']
+        for _, row in df.iterrows():
+            lines.append('  <row>')
+            for col in df.columns:
+                safe_col = str(col).replace(' ', '_')
+                lines.append(f'    <{safe_col}>{row[col]}</{safe_col}>')
+            lines.append('  </row>')
+        lines.append('</data>')
+        return '\n'.join(lines).encode('utf-8')
+
+
+def create_donut_chart(data_dict, total):
+    """
+    Crée un graphique en anneau (donut) pour visualiser la répartition des fichiers par type.
+
+    Args:
+        data_dict: Dictionnaire {label: count}
+        total: Nombre total pour affichage central
+    Returns:
+        Figure matplotlib
+    """
+    if not data_dict:
+        return None
+
+    labels = list(data_dict.keys())
+    sizes = list(data_dict.values())
+    palette = ['#3498db', '#2ecc71', '#e74c3c', '#f39c12', '#9b59b6', '#1abc9c']
+    colors = palette[:len(labels)]
+
+    fig, ax = plt.subplots(figsize=(5, 5), facecolor='#1e2139')
+    ax.set_facecolor('#1e2139')
+
+    wedges, _ = ax.pie(
+        sizes, labels=None, colors=colors, startangle=90,
+        wedgeprops=dict(width=0.55, edgecolor='#1e2139', linewidth=3)
+    )
+
+    # Texte central
+    ax.text(0, 0.08, str(total), ha='center', va='center',
+            fontsize=28, fontweight='bold', color='white')
+    ax.text(0, -0.22, 'Total', ha='center', va='center',
+            fontsize=11, color='#a0a9c0')
+
+    # Légende
+    legend_patches = [
+        mpatches.Patch(color=colors[i], label=f'{labels[i].upper()}  {sizes[i]}')
+        for i in range(len(labels))
+    ]
+    ax.legend(
+        handles=legend_patches, loc='lower center',
+        bbox_to_anchor=(0.5, -0.18), ncol=2,
+        frameon=False, labelcolor='white', fontsize=9,
+        handlelength=1.2, handleheight=1.2
+    )
+
+    plt.tight_layout()
+    return fig
+
+
 def create_boxplot(df, title="Distribution des données numériques"):
     """
     Crée des boxplots pour toutes les colonnes numériques du DataFrame.
@@ -152,14 +231,15 @@ def create_boxplot(df, title="Distribution des données numériques"):
     fig, axes = plt.subplots(n_rows, n_subplot_cols, figsize=(5*n_subplot_cols, 4*n_rows))
     fig.suptitle(title, fontsize=16, fontweight='bold')
     
-    # S'assurer que axes est toujours un tableau
+    # S'assurer que axes est toujours un tableau 1D
     if n_cols == 1:
         axes = np.array([axes])
-    axes = axes.flatten() if n_cols > 1 else axes
+    else:
+        axes = np.array(axes).flatten()
     
     # Créer un boxplot pour chaque colonne
     for idx, col in enumerate(numeric_cols):
-        ax = axes[idx] if n_cols > 1 else axes[0]
+        ax = axes[idx]
         
         # Créer le boxplot
         bp = ax.boxplot(df[col].dropna(), patch_artist=True, vert=True)
@@ -186,9 +266,8 @@ def create_boxplot(df, title="Distribution des données numériques"):
         ax.grid(True, alpha=0.3)
     
     # Masquer les axes non utilisés
-    if n_cols > 1:
-        for idx in range(n_cols, len(axes)):
-            axes[idx].set_visible(False)
+    for idx in range(n_cols, len(axes)):
+        axes[idx].set_visible(False)
     
     plt.tight_layout()
     return fig

@@ -1,0 +1,17 @@
+{
+  "admin": {
+    "password": "admin123",
+    "name": "Admin ISI",
+    "role": "Gold Member"
+  },
+  "user": {
+    "password": "pass123",
+    "name": "Henry Klein",
+    "role": "Silver Member"
+  },
+  "Abderemane": {
+    "password": "passer123",
+    "name": "Hanane",
+    "role": "Silver Member"
+  }
+}
