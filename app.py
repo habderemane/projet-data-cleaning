@@ -349,9 +349,21 @@ def page_dashboard():
                 st.pyplot(fig, use_container_width=True)
                 plt.close(fig)
 
-            palette = ['#3498db', '#2ecc71', '#e74c3c', '#f39c12', '#9b59b6', '#1abc9c']
+            type_colors = {
+                'csv': '#3498db',   # Bleu
+                'xlsx': '#2ecc71',  # Vert
+                'xls': '#2ecc71',   # Vert
+                'json': '#f39c12',  # Orange
+                'xml': '#e74c3c',   # Rouge
+            }
+            fallback_palette = ['#9b59b6', '#1abc9c', '#e67e22', '#16a085']
+            fi = 0
             for i, (ftype, count) in enumerate(type_counts.items()):
-                color = palette[i % len(palette)]
+                if ftype.lower() in type_colors:
+                    color = type_colors[ftype.lower()]
+                else:
+                    color = fallback_palette[fi % len(fallback_palette)]
+                    fi += 1
                 pct   = round(count / total_files * 100) if total_files else 0
                 st.markdown(f"""
                 <div style="display:flex;justify-content:space-between;align-items:center;
@@ -374,11 +386,11 @@ def page_dashboard():
         st.markdown('<p class="section-title">Derniers Fichiers Traités</p>', unsafe_allow_html=True)
         if history:
             ext_styles = {
-                "csv":  ("#1a3a5c", "#3498db"),
-                "xlsx": ("#1a3d2b", "#2ecc71"),
-                "xls":  ("#1a3d2b", "#2ecc71"),
-                "json": ("#3d2b1a", "#f39c12"),
-                "xml":  ("#3b1a1a", "#e74c3c"),
+                "csv":  ("#1a3a5c", "#3498db"),   # Bleu
+                "xlsx": ("#1a3d2b", "#2ecc71"),   # Vert
+                "xls":  ("#1a3d2b", "#2ecc71"),   # Vert
+                "json": ("#3d2b1a", "#f39c12"),   # Orange
+                "xml":  ("#3b1a1a", "#e74c3c"),   # Rouge
             }
             for record in history[:8]:
                 ext    = str(record.get("file_type", "")).lower().strip(".")

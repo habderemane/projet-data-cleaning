@@ -174,8 +174,23 @@ def create_donut_chart(data_dict, total):
 
     labels = list(data_dict.keys())
     sizes = list(data_dict.values())
-    palette = ['#3498db', '#2ecc71', '#e74c3c', '#f39c12', '#9b59b6', '#1abc9c']
-    colors = palette[:len(labels)]
+    # Couleurs par type de fichier
+    type_colors = {
+        'csv': '#3498db',   # Bleu
+        'xlsx': '#2ecc71',  # Vert
+        'xls': '#2ecc71',   # Vert
+        'json': '#f39c12',  # Orange
+        'xml': '#e74c3c',   # Rouge
+    }
+    fallback = ['#9b59b6', '#1abc9c', '#e67e22', '#16a085']
+    fi = 0
+    colors = []
+    for lbl in labels:
+        if lbl.lower() in type_colors:
+            colors.append(type_colors[lbl.lower()])
+        else:
+            colors.append(fallback[fi % len(fallback)])
+            fi += 1
 
     fig, ax = plt.subplots(figsize=(5, 5), facecolor='#1e2139')
     ax.set_facecolor('#1e2139')
